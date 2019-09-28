@@ -77,3 +77,35 @@ add_hook("EmailPreSend", 1, function($vars){
 	$pinstring["pin"] = montar_pin($vars["userid"]);
 	return $pinstring;
 });
+
+use WHMCS\View\Menu\Item as MenuItem;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+# Add Sidebar PIN Atendimento
+add_hook('ClientAreaSecondarySidebar', 1, function(MenuItem $primarySidebar){
+	
+
+    $primarySidebar->addChild('Client-PINATD', array(
+        'label' => "PIN Atendimento",
+        'uri' => '#',
+        'order' => '1',
+        'icon' => 'fa-money'
+    ));
+    
+    # Retrieve the panel we just created.
+    $PinATDPanel = $primarySidebar->getChild('Client-PINATD');
+    
+    // Move the panel to the end of the sorting order so it's always displayed
+    // as the last panel in the sidebar.
+    $PinATDPanel->moveToBack();
+    $PinATDPanel->setOrder(0);
+    
+    # Exibi o PIN.
+    $balancePanel->addChild('pin-atd', array(
+        'uri' => '#',
+        'label' => '<h4 style="text-align:center;">'.montar_pin($_SESSION["uid"]).'</h4>',
+        'order' => 1
+    ));
+    
+
+});
