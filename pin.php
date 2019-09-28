@@ -89,7 +89,7 @@ add_hook('ClientAreaSecondarySidebar', 1, function(MenuItem $primarySidebar){
         'label' => "PIN Atendimento",
         'uri' => '#',
         'order' => '1',
-        'icon' => 'fa-money'
+        'icon' => 'fa-key'
     ));
     
     # Retrieve the panel we just created.
